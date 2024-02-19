@@ -1,0 +1,31 @@
+<mvc:View
+    controllerName="rodrigo606.customer.crud.controller.CreateCustomer"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:card="sap.f.cards"
+    >
+     
+   <FlexBox
+    justifyContent="Center"
+    alignItems="Start"
+    direction="Column">
+    <!-- Card Header -->
+    <VBox>
+        <!-- Adicione os campos de entrada para a criação do cliente -->
+        <Input placeholder="Nome" value="{/name}" />
+        <Input placeholder="Email" value="{/email}" />
+    </VBox>
+    <!-- Card Body -->
+    <VBox>
+        <!-- Adicione os campos do corpo do cartão aqui, se houver -->
+    </VBox>
+    <!-- Card Footer -->
+    <VBox justifyContent="End">
+        <Button text="Criar Cliente" press="onCreateCustomer" />
+    </VBox>
+</FlexBox>
+
+
+</mvc:View>

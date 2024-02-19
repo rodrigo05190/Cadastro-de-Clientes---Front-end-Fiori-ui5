@@ -1,0 +1,57 @@
+<mvc:View
+    controllerName="rodrigo606.customer.crud.controller.ViewCustomer"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m">
+
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <Table id="idProductsTable" items="{/ZA_CDS_VIEW_CUST606}">
+                <columns>
+                    <Column>
+                        <Label text="First Name" />
+                    </Column>
+                    <Column>
+                        <Label text="Last Name" />
+                    </Column>
+                    <Column>
+                        <Label text="Birth Date" />
+                    </Column>
+                    <Column>
+                        <Label text="E-mail" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{first_name}" />
+                        </cells>
+                         <cells>
+                            <Text text="{last_name}" />
+                        </cells>
+                        <cells>
+                            <Text text="{path: 'birth_date', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' }}" />
+
+                        </cells>
+                        <cells>
+                            <Text text="{email}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+        <footer>
+			<OverflowToolbar id="otbFooter">
+				<ToolbarSpacer/>
+				<OverflowToolbarButton tooltip="Delete" text="Delete" icon="sap-icon://delete"/>
+				<OverflowToolbarButton tooltip="Edit" text="Edit" icon="sap-icon://edit"/>
+				<OverflowToolbarButton  tooltip="Add" text="Add" icon="sap-icon://add" press="onPressAdd" />
+				<OverflowToolbarButton tooltip="Favorite" text="Favorite" icon="sap-icon://favorite"/>
+				<OverflowToolbarButton tooltip="Flag" text="Flag" icon="sap-icon://flag"/>
+				<OverflowToolbarToggleButton tooltip="Toggle" text="Toggle" icon="sap-icon://touch" press="onTogglePress"/>
+
+			</OverflowToolbar>
+		</footer>
+    </Page>
+
+</mvc:View>
