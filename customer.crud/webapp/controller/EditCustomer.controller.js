@@ -7,28 +7,34 @@ sap.ui.define(
     "use strict";
 
     return Controller.extend(
-      "rodrigo606.customer.crud.controller.CreateCustomer",
+      "rodrigo606.customer.crud.controller.EditCustomer",
       {
         getRouter: function () {
           return this.getOwnerComponent().getRouter();
         },
 
         onInit: function () {
-          var oModel = new sap.ui.model.json.JSONModel({
-            first_name: "",
-            last_name: "",
-            phone_number: "",
-            email: "",
+          var oRouter = this.getOwnerComponent().getRouter();
+          this.getRouter()
+            .getRoute("edit")
+            .attachPatternMatched(this._onObjectMatched, this);
+        },
+        _onObjectMatched: function (oEvent) {
+          var oArgs = oEvent.getParameter("arguments");
+          var sPath = oArgs.custumerId;
+          var oDataPath = `/CUSTOMERSet(${sPath})`;
+          console.log(oDataPath);
+          this.getView().bindElement({
+            path: oDataPath,
+            expand: "customer",
           });
-          this.getView().setModel(oModel);
         },
         onCancelPress: function () {
           this.getOwnerComponent().getRouter().navTo("RouteViewCustomer");
         },
         onSavePress: function () {
-          var oModel = this.getView().getModel();
-          //var sFirstName = oModel.getProperty("/first_name");
-          console.log(oModel.oData);
+          //var oModel = this.getView().getModel();
+          //console.log(oModel.oData);
         },
         onNavBack: function () {
           var oHistory, sPreviousHash;
@@ -36,11 +42,7 @@ sap.ui.define(
           sPreviousHash = oHistory.getPreviousHash();
           sPreviousHash !== undefined
             ? window.history.go(-1)
-            : this.getRouter.navTo(
-                "RouteViewCustomer",
-                {},
-                true /*no history*/
-              );
+            : this.getRouter().navTo("RouteViewCustomer", {}, true);
         },
       }
     );

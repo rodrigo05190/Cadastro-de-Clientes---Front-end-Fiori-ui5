@@ -1,1 +1,9 @@
-/* Enter your custom styles here */
+.my-list {
+    background-color: #f7f7f7;
+    border-bottom: none;
+}
+@media screen and (max-width: 600px) {
+    .customCard {
+        width: 300px  !important;
+    }
+}

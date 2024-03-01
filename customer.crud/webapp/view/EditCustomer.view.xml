@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="rodrigo606.customer.crud.controller.CreateCustomer"
+    controllerName="rodrigo606.customer.crud.controller.EditCustomer"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:f="sap.f"
@@ -21,7 +21,7 @@
         >
             <f:Card
                 class="sapUiMediumMargin customCard"
-                width="300px"
+                width="100%"
             >
                 <f:header>
                     <card:Header
@@ -39,12 +39,12 @@
                     >
                         <Input
                             placeholder="Primeiro Nome"
-                            value="{/first_name}"
+                            value="{FirstName}"
                             class="customInputSpacing"
                         />
                         <Input
                             placeholder="Segundo Nome"
-                            value="{/last_name}"
+                            value="{LastName}"
                             class="customInputSpacing"
                         />
 
@@ -68,12 +68,12 @@
                             placeholderSymbol="_"
                             placeholder="Celular"
                             showClearIcon="true"
-                            value="{/phone_number}"
+                            value="{PhoneNumber}"
                             class="customInputSpacing"
                         />
                         <Input
                             placeholder="Email para contato"
-                            value="{/email}"
+                            value="{Email}"
                             class="customInputSpacing"
                         />
                         <VBox height="1rem" />

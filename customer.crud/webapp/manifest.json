@@ -17,7 +17,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/sap/opu/odata/sap/ZACUSTSERVICEINFO606/",
+        "uri": "/sap/opu/odata/sap/ZCUSTOMERA606_SRV/",
         "type": "OData",
         "settings": {
           "annotations": [],
@@ -102,6 +102,11 @@
           "name": "create",
           "pattern": "create",
           "target": ["TargetCreateCustomer"]
+        },
+        {
+          "name": "edit",
+          "pattern": "edit/{custumerId}",
+          "target": ["TargetEditCustomer"]
         }
       ],
       "targets": {
@@ -118,6 +123,13 @@
           "clearControlAggregation": false,
           "viewId": "CreateCustomer",
           "viewName": "CreateCustomer"
+        },
+        "TargetEditCustomer": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "EditCustomer",
+          "viewName": "EditCustomer"
         }
       }
     },
