@@ -21,7 +21,7 @@
         >
             <f:Card
                 class="sapUiMediumMargin customCard"
-                width="300px"
+                width="100%"
             >
                 <f:header>
                     <card:Header
@@ -39,41 +39,45 @@
                     >
                         <Input
                             placeholder="Primeiro Nome"
-                            value="{/first_name}"
+                            value="{/FirstName}"
                             class="customInputSpacing"
+                            id="FirstName"
                         />
                         <Input
+                            id="LastName"
                             placeholder="Segundo Nome"
-                            value="{/last_name}"
+                            value="{/LastName}"
                             class="customInputSpacing"
                         />
 
                         <DatePicker
-                            id="DP6"
+                            id="BirthDate"
                             change="handleChange"
                             class="customInputSpacing"
                             placeholder="Data de Nascimento"
                             value="{
-                            'path': '/valueDP6',
+                            'path': '/BirthDate',
                             'type': 'sap.ui.model.type.Date',
                             'formatOptions': {
-                                'pattern': 'dd/MM/y'
+                                'pattern': 'yyyy-MM-dd'
                             }
                         }"
                         />
 
                         <MaskInput
+                            id="PhoneNumber"
                             width="100%"
                             mask="(99) 99999-9999"
                             placeholderSymbol="_"
                             placeholder="Celular"
                             showClearIcon="true"
-                            value="{/phone_number}"
+                            value="{/PhoneNumber}"
                             class="customInputSpacing"
                         />
                         <Input
+                            id="Email"
                             placeholder="Email para contato"
-                            value="{/email}"
+                            value="{/Email}"
                             class="customInputSpacing"
                         />
                         <VBox height="1rem" />

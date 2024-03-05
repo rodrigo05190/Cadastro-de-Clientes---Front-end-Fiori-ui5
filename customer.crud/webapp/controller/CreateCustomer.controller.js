@@ -14,21 +14,34 @@ sap.ui.define(
         },
 
         onInit: function () {
-          var oModel = new sap.ui.model.json.JSONModel({
-            first_name: "",
-            last_name: "",
-            phone_number: "",
-            email: "",
-          });
-          this.getView().setModel(oModel);
+         
         },
         onCancelPress: function () {
           this.getOwnerComponent().getRouter().navTo("RouteViewCustomer");
         },
         onSavePress: function () {
           var oModel = this.getView().getModel();
-          //var sFirstName = oModel.getProperty("/first_name");
-          console.log(oModel.oData);
+          sap.ui.core.BusyIndicator.show()
+          var sBirthDateISO = this.byId('BirthDate').getValue();
+          var oBirthDate = new Date(sBirthDateISO);
+          var sFormattedBirthDate = this.formatDate(oBirthDate);
+          var oCustomerData = {
+            FirstName:this.byId('FirstName').getValue(),
+            LastName:this.byId('LastName').getValue(),
+            PhoneNumber:this.byId('PhoneNumber').getValue(),
+            Email:this.byId('Email').getValue(),
+            BirthDate: sFormattedBirthDate
+          };
+          
+          oModel.create('/CUSTOMERSet', oCustomerData, {
+            success: function (data, response) {
+                console.log(response);
+            }.bind(this),
+            error: function (e) {
+                console.error("Erro durante a criação:", e);
+            }.bind(this)
+          });
+          
         },
         onNavBack: function () {
           var oHistory, sPreviousHash;
@@ -39,9 +52,15 @@ sap.ui.define(
             : this.getRouter.navTo(
                 "RouteViewCustomer",
                 {},
-                true /*no history*/
+                true 
               );
         },
+        formatDate: function (oDate) {
+          var oDateFormat = sap.ui.core.format.DateFormat.getInstance({
+              pattern: "yyyy-MM-dd"
+          });
+          return oDateFormat.format(oDate);
+        }
       }
     );
   }

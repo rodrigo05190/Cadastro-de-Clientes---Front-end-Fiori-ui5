@@ -21,15 +21,16 @@ sap.ui.define(
           var oContext = oSelectdItem.getBindingContext();
           var sPath = oContext.getPath();
           var obj = oContext.getObject();
-          debugger;
           this.getOwnerComponent().getRouter().navTo("edit",{
             custumerId : obj.CustomerId
           });
         },
         onPressDelete: function (oEvent) {
           var sPath = oEvent.getSource().getBindingContext().getPath();
+          var oModel = this.getView().getModel();
+          var oClientToDelete = oModel.getProperty(sPath);
           MessageBox.confirm(
-            "This message should appear in the confirmation",
+            "Deseja realmente excluir o cliente ," + oClientToDelete.FirstName + "?",
             {
               title: "Confirm", // default
               onClose: function (oAction) {

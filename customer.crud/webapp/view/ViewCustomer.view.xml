@@ -6,7 +6,7 @@
     xmlns:card="sap.f.cards"
     xmlns:core="sap.ui.core"
     displayBlock="true"
-    height="100%"
+    
 >
     <HBox
         justifyContent="End"
@@ -24,15 +24,19 @@
         headerText="Cadastrados"
     >
         <content>
-            <List
+            <FlexBox
                 items="{/CUSTOMERSet}"
-                busy="{viewModel>/isDataLoading}"
+                alignItems="Center"
+                justifyContent="Center"
+                direction="Row"
+                wrap="Wrap"
             >
-                <CustomListItem class="my-list">
-                    <f:Card
-                        class="sapUiMediumMargin"
-                        width="300px"
-                    >
+                <HBox
+                    class="sapUiSmallMarginBegin"
+                    width="350px"
+                >
+                    <!-- Set the width to 33% for three cards per row -->
+                    <f:Card class="sapUiMediumMargin">
                         <f:header>
                             <card:Header
                                 title="{FirstName}"
@@ -72,8 +76,8 @@
                             </HBox>
                         </f:content>
                     </f:Card>
-                </CustomListItem>
-            </List>
+                </HBox>
+            </FlexBox>
         </content>
     </Panel>
 </mvc:View>

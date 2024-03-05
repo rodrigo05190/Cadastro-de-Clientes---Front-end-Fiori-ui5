@@ -9,10 +9,11 @@
     height="100%"
 >
     <Page
-        busy="{viewModel>/isDataLoading}"
+        busy="{CUSTOMERSet>/isDataLoading}"
         title=""
         showNavButton="true"
         navButtonPress="onNavBack"
+        
     >
         <VBox
             justifyContent="Center"
@@ -54,10 +55,10 @@
                             class="customInputSpacing"
                             placeholder="Data de Nascimento"
                             value="{
-                            'path': '/valueDP6',
+                            'path': 'BirthDate',
                             'type': 'sap.ui.model.type.Date',
                             'formatOptions': {
-                                'pattern': 'dd/MM/y'
+                                'pattern': 'dd-MM-yyyy'
                             }
                         }"
                         />
