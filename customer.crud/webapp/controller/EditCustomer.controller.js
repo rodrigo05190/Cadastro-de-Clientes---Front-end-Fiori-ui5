@@ -23,7 +23,6 @@ sap.ui.define(
           var oArgs = oEvent.getParameter("arguments");
           var sPath = oArgs.custumerId;
           var oDataPath = `/CUSTOMERSet(${sPath})`;
-          console.log(oDataPath);
           this.getView().bindElement({
             path: oDataPath,
             expand: "customer",

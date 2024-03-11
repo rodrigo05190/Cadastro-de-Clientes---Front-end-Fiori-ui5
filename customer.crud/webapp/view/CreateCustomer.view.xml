@@ -70,7 +70,7 @@
                             mask="(99) 99999-9999"
                             placeholderSymbol="_"
                             placeholder="Celular"
-                            showClearIcon="true"
+                            enabled="true"
                             value="{/PhoneNumber}"
                             class="customInputSpacing"
                         />

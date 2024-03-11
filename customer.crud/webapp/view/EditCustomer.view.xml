@@ -69,6 +69,7 @@
                             placeholderSymbol="_"
                             placeholder="Celular"
                             showClearIcon="true"
+                           
                             value="{PhoneNumber}"
                             class="customInputSpacing"
                         />

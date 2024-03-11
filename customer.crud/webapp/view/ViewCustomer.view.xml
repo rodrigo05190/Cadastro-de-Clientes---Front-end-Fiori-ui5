@@ -6,22 +6,35 @@
     xmlns:card="sap.f.cards"
     xmlns:core="sap.ui.core"
     displayBlock="true"
+    height="100%"
+    
     
 >
-    <HBox
-        justifyContent="End"
-        class="sapUiSmallMargin"
+<ScrollContainer
+height="100%"
+vertical="true"
+horizontal="false">
+    <FlexBox
+        
+    alignItems="Center"
+    class="sapUiSmallMargin"
+    justifyContent="SpaceBetween"
+    direction="Row"
+        
+
     >
+        <SearchField placeholder="Procurar cliente" width="100%" search=".onSearch" />
         <Button
             icon="sap-icon://create"
             text="Novo Cliente"
             press="onPressAdd"
         />
-    </HBox>
+    </FlexBox>
 
     <Panel
+        id="panel"
         busy="{viewModel>/isDataLoading}"
-        headerText="Cadastrados"
+        
     >
         <content>
             <FlexBox
@@ -30,6 +43,7 @@
                 justifyContent="Center"
                 direction="Row"
                 wrap="Wrap"
+                
             >
                 <HBox
                     class="sapUiSmallMarginBegin"
@@ -80,4 +94,5 @@
             </FlexBox>
         </content>
     </Panel>
+    </ScrollContainer>
 </mvc:View>
