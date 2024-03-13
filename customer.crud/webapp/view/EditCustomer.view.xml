@@ -13,7 +13,6 @@
         title=""
         showNavButton="true"
         navButtonPress="onNavBack"
-        
     >
         <VBox
             justifyContent="Center"
@@ -39,18 +38,27 @@
                         width="100%"
                     >
                         <Input
+                            id="CustomerId"
+                            visible="false"
+                            placeholder=""
+                            value="{CustomerId}"
+                            class="customInputSpacing"
+                        />
+                        <Input
+                            id="FirstName"
                             placeholder="Primeiro Nome"
                             value="{FirstName}"
                             class="customInputSpacing"
                         />
                         <Input
+                            id="LastName"
                             placeholder="Segundo Nome"
                             value="{LastName}"
                             class="customInputSpacing"
                         />
 
                         <DatePicker
-                            id="DP6"
+                            id="BirthDate"
                             change="handleChange"
                             class="customInputSpacing"
                             placeholder="Data de Nascimento"
@@ -64,16 +72,17 @@
                         />
 
                         <MaskInput
+                            id="PhoneNumber"
                             width="100%"
                             mask="(99) 99999-9999"
                             placeholderSymbol="_"
                             placeholder="Celular"
                             showClearIcon="true"
-                           
                             value="{PhoneNumber}"
                             class="customInputSpacing"
                         />
                         <Input
+                            id="Email"
                             placeholder="Email para contato"
                             value="{Email}"
                             class="customInputSpacing"

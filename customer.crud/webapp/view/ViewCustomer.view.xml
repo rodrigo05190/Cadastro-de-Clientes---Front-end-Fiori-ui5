@@ -43,14 +43,14 @@ horizontal="false">
                 justifyContent="Center"
                 direction="Row"
                 wrap="Wrap"
-                
+                class="customCard"
             >
                 <HBox
                     class="sapUiSmallMarginBegin"
                     width="350px"
                 >
                     <!-- Set the width to 33% for three cards per row -->
-                    <f:Card class="sapUiMediumMargin">
+                    <f:Card class="sapUiMediumMargin ">
                         <f:header>
                             <card:Header
                                 title="{FirstName}"

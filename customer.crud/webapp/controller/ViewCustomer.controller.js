@@ -1,5 +1,10 @@
 sap.ui.define(
-  ["sap/ui/core/mvc/Controller", "sap/m/MessageBox", "sap/m/MessageToast","sap/ui/core/BusyIndicator"],
+  [
+    "sap/ui/core/mvc/Controller",
+    "sap/m/MessageBox",
+    "sap/m/MessageToast",
+    "sap/ui/core/BusyIndicator",
+  ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
@@ -9,22 +14,12 @@ sap.ui.define(
     return Controller.extend(
       "rodrigo606.customer.crud.controller.ViewCustomer",
       {
-        onInit:async function () {
-          BusyIndicator.show();
-          var count = this.byId("panel");
-          var sCount = '';
-          var oModel = this.getOwnerComponent().getModel();
-          oModel.read("/CUSTOMERSet/$count", {
-            success: function (response) {
-              sCount = 'Clientes(' + response + ')';
-              count.setHeaderText(sCount)
-              BusyIndicator.hide();
-            }.bind(this),
-            error: function (e) {
-            }.bind(this),
-          });
-          
+        onInit: function (oEvent) {
+         
+         
+          this.isCount();
         },
+        
         onPressAdd: function () {
           this.getOwnerComponent().getRouter().navTo("create");
         },
@@ -50,14 +45,13 @@ sap.ui.define(
               onClose: function (oAction) {
                 // Callback function that gets executed when the user closes the confirmation dialog
                 if (oAction === sap.m.MessageBox.Action.OK) {
-                  
-                  oModel
-                    .remove(sPath, {
-                      success: function () {
-                        MessageToast.show("Cliente, excluido com sucesso!");
-                      },
-                      error: function () {},
-                    });
+                  oModel.remove(sPath, {
+                    success: function () {
+                      MessageToast.show("Cliente, excluido com sucesso!");
+                      this.isCount();
+                    }.bind(this),
+                    error: function () {},
+                  });
                 } else {
                   console.log("User clicked Close or closed the dialog");
                 }
@@ -69,6 +63,19 @@ sap.ui.define(
               textDirection: sap.ui.core.TextDirection.Inherit, // default
             }
           );
+        },
+        isCount: function () {
+          var count = this.byId("panel");
+          var sCount = "";
+          var oModel = this.getOwnerComponent().getModel();
+          oModel.read("/CUSTOMERSet/$count", {
+            success: function (response) {
+              sCount = "Clientes(" + response + ")";
+              count.setHeaderText(sCount);
+              BusyIndicator.hide();
+            }.bind(this),
+            error: function (e) {}.bind(this),
+          });
         },
       }
     );

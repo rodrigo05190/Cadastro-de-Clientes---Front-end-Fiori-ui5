@@ -4,11 +4,12 @@ sap.ui.define(
     "sap/ui/core/routing/History",
     "sap/ui/core/BusyIndicator",
     "sap/m/MessageToast",
+    "sap/m/MessageBox"
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Controller, History, BusyIndicator, MessageToast) {
+  function (Controller, History, BusyIndicator, MessageToast,MessageBox) {
     "use strict";
 
     return Controller.extend(
@@ -42,10 +43,12 @@ sap.ui.define(
               BusyIndicator.hide();
               MessageToast.show("Cliente cadastrado com sucesso");
               this.getOwnerComponent().getRouter().navTo("RouteViewCustomer");
+              location.reload();
             }.bind(this),
             error: function (e) {
               BusyIndicator.hide();
-              console.error("Erro durante a criação:", e);
+              const jsonResponse = JSON.parse(e.responseText);
+              MessageToast.show(jsonResponse.error.message.value);
             }.bind(this),
           });
         },
@@ -63,6 +66,9 @@ sap.ui.define(
           });
           return oDateFormat.format(oDate);
         },
+        //onLiveChange: function (oEvent){
+          //alert('teste');
+        //}
       }
     );
   }
