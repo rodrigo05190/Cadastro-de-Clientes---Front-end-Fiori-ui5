@@ -41,6 +41,7 @@ sap.ui.define(
           var CustomerId = this.byId("CustomerId").getValue();
           var AddressId = this.byId("AddressId").getValue();
           var birthDateValue = this.byId("BirthDate").getValue() + "T00:00:00";
+
           var oCustomerData = {
             FirstName: this.byId("FirstName").getValue(),
             LastName: this.byId("LastName").getValue(),
@@ -48,8 +49,8 @@ sap.ui.define(
             BirthDate: birthDateValue,
             Gender: this.byId("rbMaleId").getSelected() ? "MALE" : "FEMALE",
           };
+
           var oAddressData = {
-            
             PostCode: this.byId("PostCode").getValue(),
             Street: this.byId("Street").getValue(),
             Neighborhood: this.byId("Neighborhood").getValue(),
@@ -64,20 +65,24 @@ sap.ui.define(
               //BusyIndicator.hide();
               //MessageToast.show("Cliente cadastrado com sucesso");
               //this.getOwnerComponent().getRouter().navTo("RouteViewCustomer");
-              
+
               oModel.update("/AddressSet(" + AddressId + ")", oAddressData, {
-                success: function(data, response) {
-                    BusyIndicator.hide();
-                    MessageToast.show("Cliente e endereço cadastrados com sucesso");
-                    this.getOwnerComponent().getRouter().navTo("RouteViewCustomer");
-                    location.reload();
+                success: function (data, response) {
+                  BusyIndicator.hide();
+                  MessageToast.show(
+                    "Cliente e endereço cadastrados com sucesso"
+                  );
+                  this.getOwnerComponent()
+                    .getRouter()
+                    .navTo("RouteViewCustomer");
+                  location.reload();
                 }.bind(this),
-                error: function(e) {
-                    // Error handling for AddressSet creation
-                    BusyIndicator.hide();
-                    MessageToast.show("Erro ao cadastrar endereço");
-                }.bind(this)
-            });
+                error: function (e) {
+                  // Error handling for AddressSet creation
+                  BusyIndicator.hide();
+                  MessageToast.show("Erro ao cadastrar endereço");
+                }.bind(this),
+              });
             }.bind(this),
             error: function (e) {
               BusyIndicator.hide();
