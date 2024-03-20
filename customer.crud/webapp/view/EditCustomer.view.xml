@@ -2,113 +2,192 @@
     controllerName="rodrigo606.customer.crud.controller.EditCustomer"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns:f="sap.f"
     xmlns:card="sap.f.cards"
     xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    xmlns:grid="sap.ui.layout.cssgrid"
     displayBlock="true"
     height="100%"
+    xmlns:html="http://www.w3.org/1999/xhtml"
 >
-    <Page
-        busy="{CUSTOMERSet>/isDataLoading}"
-        title=""
-        showNavButton="true"
-        navButtonPress="onNavBack"
-    >
-        <VBox
-            justifyContent="Center"
-            alignItems="Center"
-            xmlns="sap.m"
+    <Page floatingFooter="true">
+        <f:SimpleForm
+            
+            id="edit"
+            minWidth="1024"
+            maxContainerCols="2"
+            layout="ResponsiveGridLayout"
+            title="Cadastro de Clientes"
+            labelSpanL="2"
+            labelSpanM="2"
+            emptySpanL="0"
+            emptySpanM="0"
+            columnsL="1"
+            columnsM="1"
+            class="editableForm"
         >
-            <f:Card
-                class="sapUiMediumMargin customCard"
-                width="100%"
-            >
-                <f:header>
-                    <card:Header
-                        title="Favor inserir os dados do Cliente e seu respectivo endereço"
-                        subtitle="Cadastro"
-                        iconSrc="sap-icon://customer"
-                    />
-                </f:header>
-                <f:content>
-                    <VBox
-                        height="100%"
-                        class="sapUiMediumMargin"
-                        justifyContent="Start"
-                        width="100%"
-                    >
-                        <Input
-                            id="CustomerId"
-                            visible="false"
-                            placeholder=""
-                            value="{CustomerId}"
-                            class="customInputSpacing"
-                        />
-                        <Input
-                            id="FirstName"
-                            placeholder="Primeiro Nome"
-                            value="{FirstName}"
-                            class="customInputSpacing"
-                        />
-                        <Input
-                            id="LastName"
-                            placeholder="Segundo Nome"
-                            value="{LastName}"
-                            class="customInputSpacing"
-                        />
+            <f:content>
+                <core:Title text="Dados Pessoais" />
+                <Input
+                    id="CustomerId"
+                    visible="false"
+                    placeholder=""
+                    value="{CustomerId}"
+                    class="customInputSpacing"
+                />
 
-                        <DatePicker
-                            id="BirthDate"
-                            change="handleChange"
-                            class="customInputSpacing"
-                            placeholder="Data de Nascimento"
-                            value="{
+                <Input
+                    binding="{address}"
+                    id="AddressId"
+                    visible="false"
+                    placeholder=""
+                    value="{AddressId}"
+                    class="customInputSpacing"
+                />
+
+                <Label text="Nome" />
+                <Input
+                    autocomplete="false"
+                    id="FirstName"
+                    value="{FirstName}"
+                    placeholder="Nome"
+                />
+                <Input
+                    id="LastName"
+                    value="{LastName}"
+                    placeholder="SobreNome"
+                >
+                    <layoutData>
+                        <l:GridData
+                            id="_IDGenGridData1"
+                            span="L3 M3 S12"
+                        />
+                    </layoutData>
+                </Input>
+
+                <Label text="Data Nascimento" />
+                <DatePicker
+                    id="BirthDate"
+                    change="handleChange"
+                    class="customInputSpacing"
+                    placeholder="Data de Nascimento"
+                    value="{
                             'path': 'BirthDate',
                             'type': 'sap.ui.model.type.Date',
                             'formatOptions': {
-                                'pattern': 'dd-MM-yyyy'
+                                'pattern': 'yyyy-MM-dd'
                             }
                         }"
+                >
+                    <layoutData>
+                        <l:GridData
+                            id="_IDGenGridData2"
+                            span="L10 M10 S12"
                         />
+                    </layoutData>
+                </DatePicker>
+                <Label labelFor="rbg4" text="Genero" />
+                <RadioButtonGroup id="rbg4" columns="4"  width="100%">
+                    <RadioButton id="rbMaleId" text="Male"  selected="{= ${Gender} === 'MALE'}" /> 
+                    <RadioButton id="rbFemaleId" text="Female" selected="{= ${Gender} === 'FEMALE'}" />
+                </RadioButtonGroup>
+                <Label text="Celular" />
+                <MaskInput
+                    id="PhoneNumber"
+                    width="100%"
+                    mask="(99) 99999-9999"
+                    placeholderSymbol="_"
+                    placeholder="Celular"
+                    
+                    value="{PhoneNumber}"
+                    class="customInputSpacing"
+                >
+                    <layoutData>
+                        <l:GridData
+                            id="_IDGenGridData3"
+                            span="L10 M10 S12"
+                        />
+                    </layoutData>
+                </MaskInput>
+                <Label text="Email" />
+                <Input
+                    enabled="false"
+                    editable="false"
+                    id="Email"
+                    placeholder="Email para contato"
+                    value="{Email}"
+                    class="customInputSpacing"
+                />
+                <core:Title text="Dados Moradia" />
+                <Label text="Cep" />
+                <Input
+                    binding="{address}"
+                    change="onCEPChange"
+                    id="PostCode"
+                    value="{PostCode}"
+                    placeholder="Digite o cep"
+                />
+                
+                <Label text="Endereço" />
+                <Input
+                    binding="{address}"
+                    id="Street"
+                    value="{Street}"
+                    placeholder="R: Vicente"
+                />
+                <Input
+                    binding="{address}"
+                    id="Neighborhood"
+                    value="{Neighborhood}"
+                    placeholder="Bairro"
+                />
+                <Label text="Cidade" />
+                <Input
+                    id="City"
+                    binding="{address}"
+                    value="{City}"
+                    placeholder="Cidade"
+                />
+                <Input
+                    binding="{address}"
+                    id="District"
+                    value="{District}"
+                    placeholder="UF"
+                />
+                <Input
+                    binding="{address}"
+                    id="houseNumber"
+                    value="{HouseNumber}"
+                    placeholder="Número"
+                />
 
-                        <MaskInput
-                            id="PhoneNumber"
-                            width="100%"
-                            mask="(99) 99999-9999"
-                            placeholderSymbol="_"
-                            placeholder="Celular"
-                            showClearIcon="true"
-                            value="{PhoneNumber}"
-                            class="customInputSpacing"
-                        />
-                        <Input
-                            id="Email"
-                            placeholder="Email para contato"
-                            value="{Email}"
-                            class="customInputSpacing"
-                        />
-                        <VBox height="1rem" />
+                <Label text="Complemento" />
+                <Input
+                    binding="{address}" 
+                    id="Complement"
+                    value="{Complement}"
+                    placeholder="Nome"
+                />
+            </f:content>
+        </f:SimpleForm>
+        <footer>
+            <Toolbar>
+                <content>
+                    <Button
+                        type="Accept"
+                        text="Salvar"
+                        press="onSavePress"
 
-                        <!-- Buttons with FlexBox for spacing -->
-                        <FlexBox
-                            justifyContent="SpaceBetween"
-                            alignItems="Center"
-                            width="100%"
-                        >
-                            <Button
-                                text="Cancelar"
-                                press="onNavBack"
-                                class="sapUiTinyMarginEnd"
-                            />
-                            <Button
-                                text="Salvar"
-                                press="onSavePress"
-                                type="Emphasized"
-                            />
-                        </FlexBox>
-                    </VBox>
-                </f:content>
-            </f:Card>
-        </VBox>
+                    />
+                    <Button
+                        type="Reject"
+                        text="Cancelar"
+                        press="onNavBack"
+
+                    />
+                </content>
+            </Toolbar>
+        </footer>
     </Page>
 </mvc:View>

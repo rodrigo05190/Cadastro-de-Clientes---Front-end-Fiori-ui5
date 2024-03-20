@@ -1,5 +1,10 @@
 sap.ui.define(
-  ["sap/ui/core/mvc/Controller", "sap/ui/core/routing/History","sap/ui/core/BusyIndicator","sap/m/MessageToast"],
+  [
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/core/routing/History",
+    "sap/ui/core/BusyIndicator",
+    "sap/m/MessageToast",
+  ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
@@ -25,31 +30,54 @@ sap.ui.define(
           var oDataPath = `/CUSTOMERSet(${sPath})`;
           this.getView().bindElement({
             path: oDataPath,
-            expand: "customer",
           });
         },
         onCancelPress: function () {
           this.getOwnerComponent().getRouter().navTo("RouteViewCustomer");
         },
-        onSavePress: function () {
+        onSavePress: async function () {
           BusyIndicator.show();
           var oModel = this.getView().getModel();
           var CustomerId = this.byId("CustomerId").getValue();
-          var sBirthDateISO = this.byId("BirthDate").getValue();
-          var oBirthDate = new Date(sBirthDateISO);
-          var sFormattedBirthDate = this.formatDate(oBirthDate);
+          var AddressId = this.byId("AddressId").getValue();
+          var birthDateValue = this.byId("BirthDate").getValue() + "T00:00:00";
           var oCustomerData = {
             FirstName: this.byId("FirstName").getValue(),
             LastName: this.byId("LastName").getValue(),
             PhoneNumber: this.byId("PhoneNumber").getValue(),
-            Email: this.byId("Email").getValue(),
-            BirthDate: sFormattedBirthDate + "T00:00:00",
+            BirthDate: birthDateValue,
+            Gender: this.byId("rbMaleId").getSelected() ? "MALE" : "FEMALE",
           };
-          oModel.update("/CUSTOMERSet("+ CustomerId +")", oCustomerData, {
+          var oAddressData = {
+            
+            PostCode: this.byId("PostCode").getValue(),
+            Street: this.byId("Street").getValue(),
+            Neighborhood: this.byId("Neighborhood").getValue(),
+            City: this.byId("City").getValue(),
+            District: this.byId("District").getValue(),
+            HouseNumber: this.byId("houseNumber").getValue(),
+            Complement: this.byId("Complement").getValue(),
+          };
+
+          oModel.update("/CUSTOMERSet(" + CustomerId + ")", oCustomerData, {
             success: function (data, response) {
-              BusyIndicator.hide();
-              MessageToast.show("Cliente cadastrado com sucesso");
-              this.getOwnerComponent().getRouter().navTo("RouteViewCustomer");
+              //BusyIndicator.hide();
+              //MessageToast.show("Cliente cadastrado com sucesso");
+              //this.getOwnerComponent().getRouter().navTo("RouteViewCustomer");
+              
+              oModel.update("/AddressSet(" + AddressId + ")", oAddressData, {
+                success: function(data, response) {
+                    BusyIndicator.hide();
+                    MessageToast.show("Cliente e endereço cadastrados com sucesso");
+                    this.getOwnerComponent().getRouter().navTo("RouteViewCustomer");
+                    location.reload();
+                }.bind(this),
+                error: function(e) {
+                    // Error handling for AddressSet creation
+                    BusyIndicator.hide();
+                    MessageToast.show("Erro ao cadastrar endereço");
+                }.bind(this)
+            });
             }.bind(this),
             error: function (e) {
               BusyIndicator.hide();
@@ -67,10 +95,66 @@ sap.ui.define(
             : this.getRouter().navTo("RouteViewCustomer", {}, true);
         },
         formatDate: function (oDate) {
+          console.log(oDate, "oDate");
           var oDateFormat = sap.ui.core.format.DateFormat.getInstance({
             pattern: "yyyy-MM-dd",
           });
           return oDateFormat.format(oDate);
+        },
+        searchCode: async function (cep) {
+          try {
+            const url = `https://viacep.com.br/ws/${cep}/json/`;
+
+            const response = await fetch(url);
+
+            if (!response.ok) {
+              throw new Error("Erro ao buscar o CEP");
+            }
+
+            const data = await response.json();
+
+            return data;
+          } catch (error) {
+            console.error("Erro ao buscar o CEP:", error.message);
+            return null;
+          }
+        },
+        onCEPChange: async function (oEvent) {
+          try {
+            // Recupera o valor do CEP digitado pelo usuário
+            var sInputValue = oEvent.getParameter("value");
+
+            // Adiciona um indicador de carregamento
+            BusyIndicator.show();
+            await new Promise((resolve) => setTimeout(resolve, 3000));
+            // Faz a busca do CEP na API e manipula a promessa retornada usando .then()
+            await this.searchCode(sInputValue)
+              .then(
+                function (address) {
+                  // Verifica se os dados do endereço foram retornados com sucesso
+                  if (address) {
+                    // Define os valores nos campos com os dados do endereço
+                    this.byId("Neighborhood").setValue(address.bairro);
+                    this.byId("City").setValue(address.localidade);
+                    this.byId("District").setValue(address.uf);
+                    this.byId("Street").setValue(address.logradouro);
+                  } else {
+                    // Trata o caso em que os dados do endereço não foram encontrados
+                    console.error("Endereço não encontrado");
+                  }
+                }.bind(this)
+              )
+              .catch(function (error) {
+                // Trata erros que podem ocorrer durante a busca do CEP
+                console.error("Erro ao buscar o CEP:", error);
+              })
+              .finally(function () {
+                // Remove o indicador de carregamento após a conclusão da busca
+                sap.ui.core.BusyIndicator.hide();
+              });
+          } catch (error) {
+            console.error("Erro:", error);
+          }
         },
       }
     );
