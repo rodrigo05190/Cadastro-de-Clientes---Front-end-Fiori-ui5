@@ -16,3 +16,15 @@ label {
         padding: 0px  !important;
     }
 }
+
+.greetingBox {
+    background-color: #f0f0f0; /* Cor de fundo */
+    padding: 10px; /* Espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+}
+
+.greetingText {
+    font-weight: bold; /* Texto em negrito */
+    font-size: 18px; /* Tamanho da fonte */
+    color: #333; /* Cor do texto */
+}

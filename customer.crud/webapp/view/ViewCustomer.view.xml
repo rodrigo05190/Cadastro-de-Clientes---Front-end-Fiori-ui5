@@ -7,92 +7,88 @@
     xmlns:core="sap.ui.core"
     displayBlock="true"
     height="100%"
-    
-    
 >
-<ScrollContainer
-height="100%"
-vertical="true"
-horizontal="false">
-    <FlexBox
-        
-    alignItems="Center"
-    class="sapUiSmallMargin"
-    justifyContent="SpaceBetween"
-    direction="Row"
-        
-
-    >
-        <SearchField placeholder="Procurar cliente" width="100%" search=".onSearch" />
-        <Button
-            icon="sap-icon://create"
-            text="Novo Cliente"
-            press="onPressAdd"
-        />
-    </FlexBox>
-
-    <Panel
-        id="panel"
+    <Page
         busy="{viewModel>/isDataLoading}"
-        
+        title=""
+        showNavButton="true"
+        navButtonPress="onNavBack"
     >
-        <content>
-            <FlexBox
-                items="{/CUSTOMERSet}"
-                alignItems="Center"
-                justifyContent="Center"
-                direction="Row"
-                wrap="Wrap"
-                class="customCard"
+        <VBox
+            justifyContent="Center"
+            alignItems="Center"
+            xmlns="sap.m"
+        >
+            <f:Card
+                class="sapUiLargeMargin customCard"
+                width=""
             >
-                <HBox
-                    class="sapUiSmallMarginBegin"
-                    width="350px"
-                >
-                    <!-- Set the width to 33% for three cards per row -->
-                    <f:Card class="sapUiMediumMargin ">
-                        <f:header>
-                            <card:Header
-                                title="{FirstName}"
-                                subtitle="{LastName}"
-                            />
-                        </f:header>
-                        <f:content>
-                            <HBox
-                                alignItems="Center"
-                                justifyContent="SpaceBetween"
-                            >
-                                <VBox
-                                    class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom "
-                                >
-                                    <Text
-                                        text="{Email}"
-                                        class="customInputSpacing"
-                                    />
-                                    <Text
-                                        text="{path: 'BirthDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' }}"
-                                    />
-                                    <Text text="{PhoneNumber}" />
-                                </VBox>
+                <f:header>
+                    <card:Header
+                        title="Favor inserir os dados de Login para acesso!"
+                        subtitle="Autenticação"
+                        iconSrc="sap-icon://customer"
+                    />
+                </f:header>
+                <f:content>
+                    <VBox
+                        height="100%"
+                        class="sapUiLargeMargin"
+                        justifyContent="Start"
+                        width="100%"
+                    >
+                        <Label text="Email" required="true" />
+                        <Input
+                            change= ".onNameChange"
+                            valueStateText="O e-mail não pode estar vazio. Máximo de 10 caracteres"
+                            id="Email"
+                            placeholder="Digite seu e-mail"
+                            type="Email"
+                            class="customInputSpacing"
+                            value="{
+                                path : 'Email',
+                                type : 'sap.ui.model.type.String',
+                                constraints : {
+                                    minLength: 5,
+                                    maxLength: 10
+                                }
+                            }"
+                        />
+                        <Label text="Password" required="true" />
+                        <Input
+                            liveChange="validateInput"
+                            id="Password"
+                            placeholder="Digite sua senha"
+                            type="Password"
+                            valueStateText="A senha não pode estar vazio. Máximo de 10 caracteres"
+                            class="customInputSpacing"
+                            value="{
+                                path : 'Password',
+                                type : 'sap.ui.model.type.String',
+                                constraints : {
+                                    minLength: 5,
+                                    maxLength: 10
+                                }
+                            }"
+                        />
 
-                                <HBox justifyContent="End">
-                                    <Button
-                                        class="sapUiSmallMarginBegin"
-                                        press="onPressEdit"
-                                        icon="sap-icon://edit"
-                                    />
-                                    <Button
-                                        class="sapUiTinyMarginBegin"
-                                        press="onPressDelete"
-                                        icon="sap-icon://delete"
-                                    />
-                                </HBox>
-                            </HBox>
-                        </f:content>
-                    </f:Card>
-                </HBox>
-            </FlexBox>
-        </content>
-    </Panel>
-    </ScrollContainer>
+                        <VBox height="1rem" />
+
+                        <!-- Buttons with FlexBox for spacing -->
+                        <FlexBox
+                            justifyContent="SpaceBetween"
+                            alignItems="Center"
+                            width="100%"
+                        >
+                            <Button
+                                text="Entrar"
+                                press="onLoginPress"
+                                type="Emphasized"
+                            />
+                        </FlexBox>
+                    </VBox>
+                </f:content>
+            </f:Card>
+        </VBox>
+    </Page>
 </mvc:View>

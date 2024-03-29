@@ -44,6 +44,7 @@
     }
   },
   "sap.ui5": {
+    "handleValidation": true,
     "flexEnabled": true,
     "dependencies": {
       "minUI5Version": "1.84.29",
@@ -99,6 +100,11 @@
           "target": ["TargetViewCustomer"]
         },
         {
+          "name": "list",
+          "pattern": "list",
+          "target": ["TargetListCustomer"]
+        },
+        {
           "name": "create",
           "pattern": "create",
           "target": ["TargetCreateCustomer"]
@@ -116,6 +122,13 @@
           "clearControlAggregation": false,
           "viewId": "ViewCustomer",
           "viewName": "ViewCustomer"
+        },
+        "TargetListCustomer": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "ListCustomer",
+          "viewName": "ListCustomer"
         },
         "TargetCreateCustomer": {
           "viewType": "XML",

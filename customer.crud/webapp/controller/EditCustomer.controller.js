@@ -62,10 +62,6 @@ sap.ui.define(
 
           oModel.update("/CUSTOMERSet(" + CustomerId + ")", oCustomerData, {
             success: function (data, response) {
-              //BusyIndicator.hide();
-              //MessageToast.show("Cliente cadastrado com sucesso");
-              //this.getOwnerComponent().getRouter().navTo("RouteViewCustomer");
-
               oModel.update("/AddressSet(" + AddressId + ")", oAddressData, {
                 success: function (data, response) {
                   BusyIndicator.hide();

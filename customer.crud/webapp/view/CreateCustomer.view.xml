@@ -13,7 +13,6 @@
 >
     <Page floatingFooter="true">
         <f:SimpleForm
-            
             id="edit"
             minWidth="1024"
             maxContainerCols="2"
@@ -38,7 +37,6 @@
                 />
 
                 <Input
-                    
                     id="AddressId"
                     visible="false"
                     placeholder=""
@@ -87,10 +85,25 @@
                         />
                     </layoutData>
                 </DatePicker>
-                <Label labelFor="rbg4" text="Genero" />
-                <RadioButtonGroup id="rbg4" columns="4"  width="100%">
-                    <RadioButton id="rbMaleId" text="Male"  selected="{= ${/Gender} === 'Male'}" />
-                    <RadioButton id="rbFemaleId" text="Female" selected="{= ${/Gender} === 'Female'}" />
+                <Label
+                    labelFor="rbg4"
+                    text="Genero"
+                />
+                <RadioButtonGroup
+                    id="rbg4"
+                    columns="4"
+                    width="100%"
+                >
+                    <RadioButton
+                        id="rbMaleId"
+                        text="Male"
+                        selected="{= ${/Gender} === 'Male'}"
+                    />
+                    <RadioButton
+                        id="rbFemaleId"
+                        text="Female"
+                        selected="{= ${/Gender} === 'Female'}"
+                    />
                 </RadioButtonGroup>
                 <Label text="Celular" />
                 <MaskInput
@@ -99,7 +112,6 @@
                     mask="(99) 99999-9999"
                     placeholderSymbol="_"
                     placeholder="Celular"
-                    
                     value="{/PhoneNumber}"
                     class="customInputSpacing"
                 >
@@ -110,9 +122,9 @@
                         />
                     </layoutData>
                 </MaskInput>
+
                 <Label text="Email" />
                 <Input
-                    
                     id="Email"
                     placeholder="Email para contato"
                     value="{/Email}"
@@ -128,7 +140,6 @@
                 />
                 <Label text="Endereço" />
                 <Input
-                    
                     id="Street"
                     value="{/Street}"
                     placeholder="R: Vicente"
@@ -161,6 +172,28 @@
                     value="{/complement}"
                     placeholder="Nome"
                 />
+
+                <core:Title
+                    text="Escolha qual atendimento de destina para carteira"
+                />
+                <Label text="Atendimento" />
+
+                <Select
+                    id="AttendanceId"
+                    enabled="{/Enabled}"
+                    editable="{/Editable}"
+                    forceSelection="false"
+                    selectedKey="{/SelectedProduct2}"
+                    items="{
+                    path: '/AttendSet',
+                    sorter: { path: 'Name' }
+                }"
+                >
+                    <core:Item
+                        key="{AttendanceId}"
+                        text="{Name}"
+                    />
+                </Select>
             </f:content>
         </f:SimpleForm>
         <footer>
@@ -170,13 +203,11 @@
                         type="Accept"
                         text="Salvar"
                         press="onSavePress"
-
                     />
                     <Button
                         type="Reject"
                         text="Cancelar"
                         press="onNavBack"
-
                     />
                 </content>
             </Toolbar>
